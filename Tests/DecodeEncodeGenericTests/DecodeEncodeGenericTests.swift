@@ -19,7 +19,7 @@ import Foundation
                 testdata.decodestringdata(DecodeTestUserConfiguration.self, fromwhere: urlJSONuiconfig) {
                 testuserconfiguration = await TestUserConfiguration(userconfig)
                 print("getdata: loading userconfiguration COMPLETED)")
-                await encodedata(data: testconfigurations)
+                await encodeuserconfiguration()
             }
             
         } catch {
@@ -34,25 +34,42 @@ import Foundation
                     configuration.profile = "test"
                     testconfigurations.append(configuration)
                 }
-                print("TestDecode: loading data COMPLETED)")
+                print("getdata: loading configuration COMPLETED)")
+                await encodconfigurations()
+                
             }
         } catch {
-            print("TestDecode: loading data FAILED)")
+            print("TestDecode: loading configuration FAILED)")
         }
     }
     
-    func encodedata<T: Codable>(data: T) async {
+    func encodeuserconfiguration() async {
         let testdata = EncodeGeneric()
         // Load user configuration
         do {
             if let encodeddata = try await testdata.encodedata(data: testuserconfiguration) {
-                print("encodedata: got encodeddata")
+                print("encodeuserconfiguration: got encodeddata")
                 let printedString = String(data: encodeddata, encoding: .utf8)!
                 print(printedString)
             }
             
         } catch {
-            print("ReadTestdataFromGitHub: loading userconfiguration FAILED)")
+            print("encodeuserconfiguration: encoding userconfiguration FAILED)")
+        }
+    }
+    
+    func encodconfigurations() async {
+        let testdata = EncodeGeneric()
+        // Load user configuration
+        do {
+            if let encodeddata = try await testdata.encodedata(data: testconfigurations) {
+                print("encodconfigurations: got encodeddata")
+                let printedString = String(data: encodeddata, encoding: .utf8)!
+                print(printedString)
+            }
+            
+        } catch {
+            print("encodconfigurations: encoding userconfiguration FAILED)")
         }
     }
 }
