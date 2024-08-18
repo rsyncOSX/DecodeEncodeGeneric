@@ -7,7 +7,6 @@
 
 import Foundation
 
-@available(macOS 14.0, *)
 @MainActor
 public final class EncodeGeneric {
     let urlSession = URLSession.shared
