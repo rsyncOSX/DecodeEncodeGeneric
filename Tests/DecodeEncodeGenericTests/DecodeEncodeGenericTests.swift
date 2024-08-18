@@ -3,8 +3,10 @@ import Foundation
 
 @testable import DecodeEncodeGeneric
 
-@Suite final class TestDecode {
+@Suite final class TestDecodeEncode {
     var testconfigurations = [TestSynchronizeConfiguration]()
+    var testuserconfiguration: TestUserConfiguration?
+    
     let urlJSONuiconfig: String = "https://raw.githubusercontent.com/rsyncOSX/RsyncArguments/master/Testdata/rsyncuiconfig.json"
     let urlJSON: String = "https://raw.githubusercontent.com/rsyncOSX/RsyncArguments/master/Testdata/configurations.json"
     
@@ -15,12 +17,13 @@ import Foundation
         do {
             if let userconfig = try await
                 testdata.decodestringdata(DecodeTestUserConfiguration.self, fromwhere: urlJSONuiconfig) {
-                await TestUserConfiguration(userconfig)
-                print("ReadTestdataFromGitHub: loading userconfiguration COMPLETED)")
+                testuserconfiguration = await TestUserConfiguration(userconfig)
+                print("getdata: loading userconfiguration COMPLETED)")
+                await encodedata(data: testconfigurations)
             }
             
         } catch {
-            print("ReadTestdataFromGitHub: loading userconfiguration FAILED)")
+            print("TestDecode: loading userconfiguration FAILED)")
         }
         // Load data
         do {
@@ -31,30 +34,21 @@ import Foundation
                     configuration.profile = "test"
                     testconfigurations.append(configuration)
                 }
-                print("ReadTestdataFromGitHub: loading data COMPLETED)")
+                print("TestDecode: loading data COMPLETED)")
             }
         } catch {
-            print("ReadTestdataFromGitHub: loading data FAILED)")
+            print("TestDecode: loading data FAILED)")
         }
     }
-}
-
-@Suite final class TestEncode {
-    let urlJSONuiconfig: String = "https://raw.githubusercontent.com/rsyncOSX/RsyncArguments/master/Testdata/rsyncuiconfig.json"
-    // let urlJSON: String = "https://raw.githubusercontent.com/rsyncOSX/RsyncArguments/master/Testdata/configurations.json"
-    let urlSession = URLSession.shared
     
-    @Test func testdata() async {
+    func encodedata<T: Codable>(data: T) async {
         let testdata = EncodeGeneric()
         // Load user configuration
         do {
-            if let url = URL(string: urlJSONuiconfig) {
-                let (data, _) = try await urlSession.getURLdata(for: url)
-                print("got data")
-                if let encodedata = try await testdata.encodedata(DecodeTestUserConfiguration.self, data: data) {
-                    print("got encodedata")
-                    print(encodedata)
-                }
+            if let encodeddata = try await testdata.encodedata(data: testuserconfiguration) {
+                print("encodedata: got encodeddata")
+                let printedString = String(data: encodeddata, encoding: .utf8)!
+                print(printedString)
             }
             
         } catch {

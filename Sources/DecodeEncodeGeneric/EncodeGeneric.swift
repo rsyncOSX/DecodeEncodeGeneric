@@ -12,13 +12,13 @@ public final class EncodeGeneric {
     let urlSession = URLSession.shared
     let jsonEncoder = JSONEncoder()
 
-    public func encodedata<T: Codable>(_ t: T.Type, data: Data) async throws -> Data? {
-        var jsondata = Data()
+    public func encodedata<T: Codable>(data: T) async throws -> Data? {
         do {
-            jsondata = try jsonEncoder.encode(data)
+            let jsondata = try jsonEncoder.encode(data)
+            return jsondata
         } catch {
             return nil
         }
-        return jsondata
+        
     }
 }
