@@ -13,21 +13,8 @@ public final class EncodeGeneric {
     let urlSession = URLSession.shared
     let jsonEncoder = JSONEncoder()
 
-    func encodestringdata<T: Encodable>(_ t: T.Type, fromwhere: String) async throws -> T? {
-        if let url = URL(string: fromwhere) {
-            let (data, _) = try await urlSession.getURLdata(for: url)
-            return try jsonEncoder.encode(data) as? T
-        } else {
-            return nil
-        }
+    public func encodedata<T: Codable>(_ t: T.Type, data: Data) async throws -> T? {
+        return try jsonEncoder.encode(data) as? T
     }
     
-    func encodearraydata<T: Encodable>(_ t: T.Type, fromwhere: String) async throws -> [T]? {
-        if let url = URL(string: fromwhere) {
-            let (data, _) = try await urlSession.getURLdata(for: url)
-            return try jsonEncoder.encode(data) as? [T]
-        } else {
-            return nil
-        }
-    }
 }

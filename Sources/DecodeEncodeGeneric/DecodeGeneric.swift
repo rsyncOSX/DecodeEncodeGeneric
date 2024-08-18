@@ -10,10 +10,10 @@ import Foundation
 @available(macOS 14.0, *)
 @MainActor
 public final class DecodeGeneric {
-    let urlSession = URLSession.shared
-    let jsonDecoder = JSONDecoder()
+    public private(set) var urlSession = URLSession.shared
+    public private(set) var jsonDecoder = JSONDecoder()
 
-    func decodestringdata<T: Codable>(_ t: T.Type, fromwhere: String) async throws -> T? {
+    public func decodestringdata<T: Codable>(_ t: T.Type, fromwhere: String) async throws -> T? {
         if let url = URL(string: fromwhere) {
             let (data, _) = try await urlSession.getURLdata(for: url)
             return try jsonDecoder.decode(T.self, from: data)
@@ -22,7 +22,7 @@ public final class DecodeGeneric {
         }
     }
     
-    func decodearraydata<T: Codable>(_ t: T.Type, fromwhere: String) async throws -> [T]? {
+    public func decodearraydata<T: Codable>(_ t: T.Type, fromwhere: String) async throws -> [T]? {
         if let url = URL(string: fromwhere) {
             let (data, _) = try await urlSession.getURLdata(for: url)
             return try jsonDecoder.decode([T].self, from: data)
