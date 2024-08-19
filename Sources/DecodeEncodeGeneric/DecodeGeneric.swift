@@ -31,6 +31,8 @@ public final class DecodeGeneric {
             return nil
         }
     }
+    
+    public init() {}
 }
 
 public extension URLSession {
