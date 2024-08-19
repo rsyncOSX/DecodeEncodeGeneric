@@ -1,27 +1,27 @@
-import Testing
 import Foundation
+import Testing
 
 @testable import DecodeEncodeGeneric
 
 @Suite final class TestDecodeEncode {
     var testconfigurations = [TestSynchronizeConfiguration]()
     var testuserconfiguration: TestUserConfiguration?
-    
+
     let urlJSONuiconfig: String = "https://raw.githubusercontent.com/rsyncOSX/RsyncArguments/master/Testdata/rsyncuiconfig.json"
     let urlJSON: String = "https://raw.githubusercontent.com/rsyncOSX/RsyncArguments/master/Testdata/configurations.json"
-    
-    
+
     @Test func getdata() async {
         let testdata = await DecodeGeneric()
         // Load user configuration
         do {
             if let userconfig = try await
-                testdata.decodestringdata(DecodeTestUserConfiguration.self, fromwhere: urlJSONuiconfig) {
+                testdata.decodestringdata(DecodeTestUserConfiguration.self, fromwhere: urlJSONuiconfig)
+            {
                 testuserconfiguration = await TestUserConfiguration(userconfig)
                 print("getdata: loading userconfiguration COMPLETED)")
                 await encodeuserconfiguration()
             }
-            
+
         } catch {
             print("TestDecode: loading userconfiguration FAILED)")
         }
@@ -36,13 +36,12 @@ import Foundation
                 }
                 print("getdata: loading configuration COMPLETED)")
                 await encodconfigurations()
-                
             }
         } catch {
             print("TestDecode: loading configuration FAILED)")
         }
     }
-    
+
     func encodeuserconfiguration() async {
         let testdata = await EncodeGeneric()
         // Load user configuration
@@ -52,12 +51,12 @@ import Foundation
                 let printedString = String(data: encodeddata, encoding: .utf8)!
                 print(printedString)
             }
-            
+
         } catch {
             print("encodeuserconfiguration: encoding userconfiguration FAILED)")
         }
     }
-    
+
     func encodconfigurations() async {
         let testdata = await EncodeGeneric()
         // Load user configuration
@@ -67,7 +66,7 @@ import Foundation
                 let printedString = String(data: encodeddata, encoding: .utf8)!
                 print(printedString)
             }
-            
+
         } catch {
             print("encodconfigurations: encoding userconfiguration FAILED)")
         }

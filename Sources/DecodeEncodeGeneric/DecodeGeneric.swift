@@ -11,9 +11,37 @@ import Foundation
 public final class DecodeGeneric {
     public private(set) var urlSession = URLSession.shared
     public private(set) var jsonDecoder = JSONDecoder()
-    
+
+    public func decodestringdatafileURL<T: Codable>(_: T.Type, fromwhere: String) throws -> T? {
+        var data: Data?
+        let url = URL(fileURLWithPath: fromwhere, isDirectory: false)
+        do {
+            data = try Data(contentsOf: url)
+            if let data {
+                return try jsonDecoder.decode(T.self, from: data)
+            }
+        } catch {
+            return nil
+        }
+        return nil
+    }
+
+    public func decodearraydatafileURL<T: Codable>(_: T.Type, fromwhere: String) throws -> [T]? {
+        var data: Data?
+        let url = URL(fileURLWithPath: fromwhere, isDirectory: false)
+        do {
+            data = try Data(contentsOf: url)
+            if let data {
+                return try jsonDecoder.decode([T].self, from: data)
+            }
+        } catch {
+            return nil
+        }
+        return nil
+    }
+
     @available(macOS 12.0, *)
-    public func decodestringdata<T: Codable>(_ t: T.Type, fromwhere: String) async throws -> T? {
+    public func decodestringdata<T: Codable>(_: T.Type, fromwhere: String) async throws -> T? {
         if let url = URL(string: fromwhere) {
             let (data, _) = try await urlSession.getURLdata(for: url)
             return try jsonDecoder.decode(T.self, from: data)
@@ -21,9 +49,9 @@ public final class DecodeGeneric {
             return nil
         }
     }
-    
+
     @available(macOS 12.0, *)
-    public func decodearraydata<T: Codable>(_ t: T.Type, fromwhere: String) async throws -> [T]? {
+    public func decodearraydata<T: Codable>(_: T.Type, fromwhere: String) async throws -> [T]? {
         if let url = URL(string: fromwhere) {
             let (data, _) = try await urlSession.getURLdata(for: url)
             return try jsonDecoder.decode([T].self, from: data)
@@ -31,7 +59,7 @@ public final class DecodeGeneric {
             return nil
         }
     }
-    
+
     public init() {}
 }
 
@@ -41,4 +69,3 @@ public extension URLSession {
         try await data(from: url)
     }
 }
-
