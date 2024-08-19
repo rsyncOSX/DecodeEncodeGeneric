@@ -12,7 +12,7 @@ import Foundation
     
     
     @Test func getdata() async {
-        let testdata = DecodeGeneric()
+        let testdata = await DecodeGeneric()
         // Load user configuration
         do {
             if let userconfig = try await
