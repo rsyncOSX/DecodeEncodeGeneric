@@ -44,7 +44,7 @@ import Foundation
     }
     
     func encodeuserconfiguration() async {
-        let testdata = EncodeGeneric()
+        let testdata = await EncodeGeneric()
         // Load user configuration
         do {
             if let encodeddata = try await testdata.encodedata(data: testuserconfiguration) {
@@ -59,7 +59,7 @@ import Foundation
     }
     
     func encodconfigurations() async {
-        let testdata = EncodeGeneric()
+        let testdata = await EncodeGeneric()
         // Load user configuration
         do {
             if let encodeddata = try await testdata.encodedata(data: testconfigurations) {

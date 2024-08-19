@@ -9,8 +9,8 @@ import Foundation
 
 @MainActor
 public final class EncodeGeneric {
-    let urlSession = URLSession.shared
-    let jsonEncoder = JSONEncoder()
+    public private(set) var urlSession = URLSession.shared
+    public private(set) var jsonEncoder = JSONEncoder()
 
     public func encodedata<T: Codable>(data: T) async throws -> Data? {
         do {
@@ -19,6 +19,7 @@ public final class EncodeGeneric {
         } catch {
             return nil
         }
-        
     }
+    
+    public init() { }
 }
