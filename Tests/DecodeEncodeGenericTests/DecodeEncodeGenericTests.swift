@@ -48,8 +48,11 @@ import Testing
         do {
             if let encodeddata = try await testdata.encodedata(data: testuserconfiguration) {
                 print("encodeuserconfiguration: got encodeddata")
-                let printedString = String(data: encodeddata, encoding: .utf8)!
-                print(printedString)
+                
+                if let printedString = String(data: encodeddata, encoding: .utf8) {
+                    print(printedString)
+                }
+                
             }
 
         } catch {
@@ -63,8 +66,9 @@ import Testing
         do {
             if let encodeddata = try await testdata.encodedata(data: testconfigurations) {
                 print("encodconfigurations: got encodeddata")
-                let printedString = String(data: encodeddata, encoding: .utf8)!
-                print(printedString)
+                if let printedString = String(data: encodeddata, encoding: .utf8) {
+                    print(printedString)
+                }
             }
 
         } catch {
