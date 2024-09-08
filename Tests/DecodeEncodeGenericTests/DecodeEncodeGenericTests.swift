@@ -18,12 +18,12 @@ import Testing
                 testdata.decodestringdata(DecodeTestUserConfiguration.self, fromwhere: urlJSONuiconfig)
             {
                 testuserconfiguration = await TestUserConfiguration(userconfig)
-                print("getdata: loading userconfiguration COMPLETED)")
+                print("getdata: loading userconfiguration COMPLETED\n)")
                 await encodeuserconfiguration()
             }
 
         } catch {
-            print("TestDecode: loading userconfiguration FAILED)")
+            print("TestDecode: loading userconfiguration FAILED\n)")
         }
         // Load data
         do {
@@ -34,11 +34,11 @@ import Testing
                     configuration.profile = "test"
                     testconfigurations.append(configuration)
                 }
-                print("getdata: loading configuration COMPLETED)")
+                print("getdata: loading configuration COMPLETED\n)")
                 await encodconfigurations()
             }
         } catch {
-            print("TestDecode: loading configuration FAILED)")
+            print("TestDecode: loading configuration FAILED\n)")
         }
     }
 
@@ -47,7 +47,7 @@ import Testing
         // Load user configuration
         do {
             if let encodeddata = try await testdata.encodedata(data: testuserconfiguration) {
-                print("encodeuserconfiguration: got encodeddata")
+                print("encodeuserconfiguration: got encodeddata\n")
                 
                 if let printedString = String(data: encodeddata, encoding: .utf8) {
                     print(printedString)
@@ -56,7 +56,7 @@ import Testing
             }
 
         } catch {
-            print("encodeuserconfiguration: encoding userconfiguration FAILED)")
+            print("encodeuserconfiguration: encoding userconfiguration FAILED\n")
         }
     }
 
@@ -65,14 +65,14 @@ import Testing
         // Load user configuration
         do {
             if let encodeddata = try await testdata.encodedata(data: testconfigurations) {
-                print("encodconfigurations: got encodeddata")
+                print("encodconfigurations: got encodeddata\n")
                 if let printedString = String(data: encodeddata, encoding: .utf8) {
                     print(printedString)
                 }
             }
 
         } catch {
-            print("encodconfigurations: encoding userconfiguration FAILED)")
+            print("encodconfigurations: encoding userconfiguration FAILED\n")
         }
     }
 }
