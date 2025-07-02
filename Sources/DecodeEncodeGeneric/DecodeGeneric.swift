@@ -11,7 +11,28 @@ import Foundation
 public final class DecodeGeneric {
     public private(set) var urlSession = URLSession.shared
     public private(set) var jsonDecoder = JSONDecoder()
+    
+    public func decodestring<T: Decodable>(_: T.Type, from stringinput: String) throws -> T? {
+        if let jsonData = stringinput.data(using: .utf8) {
+            return try jsonDecoder.decode(T.self, from: jsonData)
+        }
+        return nil
+    }
 
+    public func decodestringdatafileURL<T: Decodable>(_: T.Type, fromwhere: String) throws -> T? {
+        var data: Data?
+        let url = URL(fileURLWithPath: fromwhere, isDirectory: false)
+        do {
+            data = try Data(contentsOf: url)
+            if let data {
+                return try jsonDecoder.decode(T.self, from: data)
+            }
+        } catch {
+            return nil
+        }
+        return nil
+    }
+    
     public func decodestringdatafileURL<T: Codable>(_: T.Type, fromwhere: String) throws -> T? {
         var data: Data?
         let url = URL(fileURLWithPath: fromwhere, isDirectory: false)
