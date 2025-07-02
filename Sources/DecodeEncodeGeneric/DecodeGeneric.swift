@@ -18,6 +18,13 @@ public final class DecodeGeneric {
         }
         return nil
     }
+    
+    public func decodearraystring<T: Decodable>(_: T.Type, from stringinput: String) throws ->[T]? {
+        if let jsonData = stringinput.data(using: .utf8) {
+            return try jsonDecoder.decode([T].self, from: jsonData)
+        }
+        return nil
+    }
 
     public func decodestringdatafileURL<T: Decodable>(_: T.Type, fromwhere: String) throws -> T? {
         var data: Data?
