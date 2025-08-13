@@ -7,7 +7,6 @@
 
 import Foundation
 
-@MainActor
 public final class DecodeGeneric {
     public private(set) var urlSession = URLSession.shared
     public private(set) var jsonDecoder = JSONDecoder()

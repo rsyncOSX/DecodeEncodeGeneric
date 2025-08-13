@@ -11,7 +11,7 @@ import Testing
     let urlJSON: String = "https://raw.githubusercontent.com/rsyncOSX/RsyncArguments/master/Testdata/configurations.json"
 
     @Test func getdata() async {
-        let testdata = await DecodeGeneric()
+        let testdata = DecodeGeneric()
         // Load user configuration
         do {
             if let userconfig = try await
@@ -43,10 +43,10 @@ import Testing
     }
 
     func encodeuserconfiguration() async {
-        let testdata = await EncodeGeneric()
+        let testdata = EncodeGeneric()
         // Load user configuration
         do {
-            if let encodeddata = try await testdata.encodedata(data: testuserconfiguration) {
+            if let encodeddata = try testdata.encodedata(data: testuserconfiguration) {
                 print("encodeuserconfiguration: got encodeddata\n")
                 
                 if let printedString = String(data: encodeddata, encoding: .utf8) {
@@ -61,10 +61,10 @@ import Testing
     }
 
     func encodconfigurations() async {
-        let testdata = await EncodeGeneric()
+        let testdata = EncodeGeneric()
         // Load user configuration
         do {
-            if let encodeddata = try await testdata.encodedata(data: testconfigurations) {
+            if let encodeddata = try testdata.encodedata(data: testconfigurations) {
                 print("encodconfigurations: got encodeddata\n")
                 if let printedString = String(data: encodeddata, encoding: .utf8) {
                     print(printedString)

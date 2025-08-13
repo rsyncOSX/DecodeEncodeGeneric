@@ -7,7 +7,6 @@
 
 import Foundation
 
-@MainActor
 public final class EncodeGeneric {
     public private(set) var urlSession = URLSession.shared
     public private(set) var jsonEncoder = JSONEncoder()
