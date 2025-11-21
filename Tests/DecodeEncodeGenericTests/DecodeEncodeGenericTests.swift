@@ -14,31 +14,30 @@ import Testing
         let testdata = DecodeGeneric()
         // Load user configuration
         do {
-            if let userconfig = try await
-                testdata.decodestringdata(DecodeTestUserConfiguration.self, fromwhere: urlJSONuiconfig)
-            {
+            let userconfig: DecodeTestUserConfiguration = try
+            await testdata.decode(DecodeTestUserConfiguration.self, fromURL: urlJSONuiconfig)
                 testuserconfiguration = await TestUserConfiguration(userconfig)
-                print("getdata: loading userconfiguration COMPLETED\n)")
+                print("getdata: loading userconfiguration COMPLETED\n")
                 await encodeuserconfiguration()
-            }
+            
 
         } catch {
-            print("TestDecode: loading userconfiguration FAILED\n)")
+            print("TestDecode: loading userconfiguration FAILED\n")
         }
         // Load data
         do {
-            if let testdata = try await testdata.decodearraydata(DecodeTestdata.self, fromwhere: urlJSON) {
+            let testdata: [DecodeTestdata] = try await testdata.decode([DecodeTestdata].self, fromURL: urlJSON)
                 testconfigurations.removeAll()
                 for i in 0 ..< testdata.count {
                     var configuration = TestSynchronizeConfiguration(testdata[i])
                     configuration.profile = "test"
                     testconfigurations.append(configuration)
                 }
-                print("getdata: loading configuration COMPLETED\n)")
+                print("getdata: loading configuration COMPLETED\n")
                 await encodconfigurations()
-            }
+            
         } catch {
-            print("TestDecode: loading configuration FAILED\n)")
+            print("TestDecode: loading configuration FAILED\n")
         }
     }
 
@@ -46,15 +45,12 @@ import Testing
         let testdata = EncodeGeneric()
         // Load user configuration
         do {
-            if let encodeddata = try testdata.encodedata(data: testuserconfiguration) {
+            let encodeddata = try testdata.encode(testuserconfiguration)
                 print("encodeuserconfiguration: got encodeddata\n")
                 
                 if let printedString = String(data: encodeddata, encoding: .utf8) {
                     print(printedString)
                 }
-                
-            }
-
         } catch {
             print("encodeuserconfiguration: encoding userconfiguration FAILED\n")
         }
@@ -64,12 +60,12 @@ import Testing
         let testdata = EncodeGeneric()
         // Load user configuration
         do {
-            if let encodeddata = try testdata.encodedata(data: testconfigurations) {
+            let encodeddata = try testdata.encode(testconfigurations)
                 print("encodconfigurations: got encodeddata\n")
                 if let printedString = String(data: encodeddata, encoding: .utf8) {
                     print(printedString)
                 }
-            }
+            
 
         } catch {
             print("encodconfigurations: encoding userconfiguration FAILED\n")
