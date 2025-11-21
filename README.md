@@ -1,5 +1,7 @@
 ## Hi there 👋
 
+Version 2.0.0
+
 This package is generic code for decode and encode JSON data, as part of reading and writing data to local storage. Data are tasks, logrecords and user configuration.
 
 The package is used in [RsyncUI](https://github.com/rsyncOSX/RsyncUI).
