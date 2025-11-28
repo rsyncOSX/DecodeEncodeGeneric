@@ -284,3 +284,11 @@ let decoder = DecodeGeneric(urlSession: customSession)
 ## Thread Safety
 
 Both `DecodeGeneric` and `EncodeGeneric` are marked as `final` classes. The underlying `JSONDecoder` and `JSONEncoder` are thread-safe for read operations, but you should create separate instances for concurrent encoding/decoding operations.
+
+## License
+
+MIT
+
+## Author
+
+Thomas Evensen
