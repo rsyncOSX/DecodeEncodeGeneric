@@ -27,8 +27,8 @@ import Testing
         do {
             let testdata: [DecodeTestdata] = try await testdata.decode([DecodeTestdata].self, fromURL: urlJSON)
             testconfigurations.removeAll()
-            for i in 0 ..< testdata.count {
-                var configuration = TestSynchronizeConfiguration(testdata[i])
+            for index in 0 ..< testdata.count {
+                var configuration = TestSynchronizeConfiguration(testdata[index])
                 configuration.profile = "test"
                 testconfigurations.append(configuration)
             }

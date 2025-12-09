@@ -71,7 +71,7 @@ struct TestSynchronizeConfiguration: Identifiable, Codable {
         // For snapshots
         if let snapshotnum = data.snapshotnum {
             self.snapshotnum = snapshotnum
-            snapdayoffweek = data.snapdayoffweek ?? TestStringDayofweek.Sunday.rawValue
+            snapdayoffweek = data.snapdayoffweek ?? TestStringDayofweek.sunday.rawValue
             snaplast = data.snaplast ?? 1
         }
         // Last run of task
@@ -127,13 +127,13 @@ extension TestSynchronizeConfiguration: Hashable, Equatable {
 }
 
 enum TestStringDayofweek: String, CaseIterable, Identifiable, CustomStringConvertible {
-    case Monday
-    case Tuesday
-    case Wednesday
-    case Thursday
-    case Friday
-    case Saturday
-    case Sunday
+    case monday
+    case tuesday
+    case wednesday
+    case thursday
+    case friday
+    case saturday
+    case sunday
 
     var id: String { rawValue }
     var description: String { rawValue.localizedLowercase }
