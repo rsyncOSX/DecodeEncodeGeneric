@@ -275,6 +275,13 @@ let customSession = URLSession(configuration: config)
 let decoder = DecodeGeneric(urlSession: customSession)
 ```
 
+## Internals (Maintainers)
+
+- Decoding flows through `decodeData`/`decodeDataArray` helpers so all entry points share the same error mapping to `DecodeError`.
+- Encoding uses `some Encodable` for tighter type safety while still accepting any codable type; arrays use the same helper for consistent failures.
+- `prettyPrinted()` builds an encoder with sorted keys and pretty print for deterministic output without altering the primary encoder configuration.
+- File helpers guard empty paths up-front and return `.invalidFilePath`; IO and string conversion errors surface as typed `EncodeError`/`DecodeError` for clearer logging and tests.
+
 ## Requirements
 
 - Swift 5.7+
