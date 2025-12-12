@@ -1,7 +1,5 @@
 # Paths to exclude from linting
 excluded:
-  - Pods
-  - Carthage
   - .build
 
 # Opt-in rules you want beyond defaults
